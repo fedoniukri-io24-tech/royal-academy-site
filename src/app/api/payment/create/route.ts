@@ -3,7 +3,12 @@ import crypto from 'crypto'
 import { createMonoInvoice } from '@/lib/mono'
 import { buildPaymentDestination, encodePaymentMeta } from '@/lib/paymentMeta'
 import { splitContact } from '@/lib/parseContact'
-import { MARATHON_PRICE, SITE_NAME, SITE_URL } from '@/app/site'
+import {
+  getMarathonTariff,
+  MARATHON_DEFAULT_TARIFF_ID,
+  SITE_NAME,
+  SITE_URL,
+} from '@/app/site'
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,6 +23,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const name = typeof body.name === 'string' ? body.name.trim() : ''
     const contact = typeof body.contact === 'string' ? body.contact.trim() : ''
+    const tariffId =
+      typeof body.tariffId === 'string' ? body.tariffId.trim() : MARATHON_DEFAULT_TARIFF_ID
+    const tariff = getMarathonTariff(tariffId) ?? getMarathonTariff(MARATHON_DEFAULT_TARIFF_ID)
     const { phone, telegram } = splitContact(contact)
 
     if (!name) {
@@ -28,8 +36,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Вкажіть телефон або Telegram' }, { status: 400 })
     }
 
+    if (!tariff) {
+      return NextResponse.json({ error: 'Невірний тариф' }, { status: 400 })
+    }
+
     const reference = crypto.randomUUID()
-    const amountMinor = MARATHON_PRICE * 100
+    const amountMinor = tariff.price * 100
     const siteUrl = SITE_URL
     const customer = { name, phone, telegram }
     const meta = encodePaymentMeta(customer)
@@ -44,7 +56,7 @@ export async function POST(req: NextRequest) {
         comment: meta,
         basketOrder: [
           {
-            name: '10-тижневий марафон англійської',
+            name: `Тариф «${tariff.name}» | 10-тижневий марафон англійської`,
             qty: 1,
             sum: amountMinor,
             total: amountMinor,

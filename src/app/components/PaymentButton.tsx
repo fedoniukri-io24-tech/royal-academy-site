@@ -8,6 +8,7 @@ type PaymentButtonProps = {
   children: ReactNode
   'aria-label'?: string
   disabled?: boolean
+  tariffId?: string
   onBeforeOpen?: () => void
 }
 
@@ -16,6 +17,7 @@ export default function PaymentButton({
   children,
   'aria-label': ariaLabel,
   disabled,
+  tariffId,
   onBeforeOpen,
 }: PaymentButtonProps) {
   const { openPaymentModal } = usePaymentModal()
@@ -25,7 +27,7 @@ export default function PaymentButton({
     if (disabled) return
 
     onBeforeOpen?.()
-    openPaymentModal()
+    openPaymentModal(tariffId)
   }
 
   return (

@@ -8,7 +8,11 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { MARATHON_PRICE } from '../site'
+import {
+  getMarathonTariff,
+  MARATHON_DEFAULT_TARIFF_ID,
+  MARATHON_TARIFFS,
+} from '../site'
 import ConsentLabel from './ConsentLabel'
 import { startPayment } from '@/lib/startPayment'
 import styles from './PaymentModal.module.css'
@@ -20,7 +24,7 @@ type PaymentFormState = {
 }
 
 type PaymentContextValue = {
-  openPaymentModal: () => void
+  openPaymentModal: (tariffId?: string) => void
 }
 
 const PaymentContext = createContext<PaymentContextValue | null>(null)
@@ -33,9 +37,13 @@ const emptyForm = (): PaymentFormState => ({
 
 export function PaymentProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
+  const [selectedTariffId, setSelectedTariffId] = useState(MARATHON_DEFAULT_TARIFF_ID)
   const [form, setForm] = useState<PaymentFormState>(emptyForm)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const selectedTariff =
+    getMarathonTariff(selectedTariffId) ?? getMarathonTariff(MARATHON_DEFAULT_TARIFF_ID)!
 
   const close = useCallback(() => {
     if (loading) return
@@ -44,9 +52,10 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
     setForm(emptyForm())
   }, [loading])
 
-  const openPaymentModal = useCallback(() => {
+  const openPaymentModal = useCallback((tariffId?: string) => {
     setError('')
     setForm(emptyForm())
+    setSelectedTariffId(tariffId ?? MARATHON_DEFAULT_TARIFF_ID)
     setOpen(true)
   }, [])
 
@@ -95,7 +104,7 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
     setError('')
 
     try {
-      await startPayment({ name, contact })
+      await startPayment({ name, contact, tariffId: selectedTariff.id })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Сталася помилка. Спробуйте ще раз.')
       setLoading(false)
@@ -125,7 +134,7 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
                   Оформлення доступу
                 </h2>
                 <p className={styles.subtitle}>
-                  Заповніть дані — після цього відкриється оплата {MARATHON_PRICE} грн
+                  Тариф «{selectedTariff.name}» — {selectedTariff.price} грн. Заповніть дані, після цього відкриється оплата.
                 </p>
               </div>
               <button type="button" className={styles.close} onClick={close} aria-label="Закрити">
@@ -136,6 +145,28 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
             </div>
 
             <form className={styles.form} onSubmit={handleSubmit} noValidate>
+              <div className={styles.tariffPicker} role="radiogroup" aria-label="Оберіть тариф">
+                {MARATHON_TARIFFS.map((tariff) => (
+                  <label
+                    key={tariff.id}
+                    className={`${styles.tariffOption} ${tariff.featured ? styles.tariffOptionFeatured : ''} ${selectedTariffId === tariff.id ? styles.tariffOptionActive : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      name="tariff"
+                      value={tariff.id}
+                      checked={selectedTariffId === tariff.id}
+                      onChange={() => setSelectedTariffId(tariff.id)}
+                    />
+                    {tariff.badge && (
+                      <span className={styles.tariffOptionBadge}>{tariff.badge}</span>
+                    )}
+                    <span className={styles.tariffOptionName}>{tariff.name}</span>
+                    <span className={styles.tariffOptionPrice}>{tariff.price} грн</span>
+                  </label>
+                ))}
+              </div>
+
               <div className={styles.field}>
                 <label htmlFor="payment-name">Ім&apos;я</label>
                 <input
@@ -184,7 +215,7 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
                       <path d="M2 10h20" />
                       <path d="M6 15h4" />
                     </svg>
-                    Перейти до оплати {MARATHON_PRICE} грн
+                    Перейти до оплати {selectedTariff.price} грн
                   </>
                 )}
               </button>

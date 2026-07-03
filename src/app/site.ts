@@ -18,7 +18,7 @@ export const SITE_URL = normalizeSiteUrl(
 
 export const SITE_TITLE = `${SITE_NAME} | Марафон англійської за 10 занять`
 export const SITE_DESCRIPTION =
-  '10-тижневий онлайн-марафон англійської для рівня A1: 10 занять, 70 днів підтримки, speaking-практика, перевірка домашніх завдань і розіграш 10 000 грн. Доступ за 490 грн замість 2 450 грн.'
+  '10-тижневий онлайн-марафон англійської для рівня A1: 10 занять, speaking-практика, перевірка домашніх завдань і розіграш 10 000 грн. Тарифи від 399 грн.'
 
 export const SITE_KEYWORDS = [
   'Royal Academy School',
@@ -37,15 +37,86 @@ export const SITE_PHONE_DISPLAY = '+380 97 123 45 67'
 
 export const SITE_THEME_COLOR = '#C41E3A'
 
-export const MARATHON_PRICE = 490
-export const MARATHON_PRICE_OLD = 2450
+export const MARATHON_TARIFF_FEATURES = [
+  'Авторська програма з англійської від Жаборовської Тетяни з простим і зрозумілим поясненням граматики',
+  '10 повноцінних уроків із усіма необхідними матеріалами (відео, аудіо, PDF-конспекти)',
+  'Доступ до всіх матеріалів протягом 2 місяців після завершення марафону',
+  'Технічна підтримка протягом усього навчання',
+  'PDF-конспекти всіх уроків для зручного повторення',
+  'PDF-конспект із додатковими ресурсами та корисними матеріалами',
+  'Перевірка домашніх завдань і персональний фідбек',
+  '4 Zoom-сесії для практики та закріплення знань',
+  'Живе спілкування, практика та відповіді на запитання',
+  'Бонусна система з можливістю виграти 10 000 грн та інші подарунки',
+] as const
+
+export type MarathonTariff = {
+  id: string
+  name: string
+  price: number
+  description: string
+  features: readonly string[]
+  featured?: boolean
+  badge?: string
+}
+
+export const MARATHON_TARIFFS: readonly MarathonTariff[] = [
+  {
+    id: 'solo',
+    name: 'Я сама',
+    price: 399,
+    description:
+      'Для тих, хто хоче пройти марафон у власному темпі та самостійно закріпити знання.',
+    features: MARATHON_TARIFF_FEATURES,
+  },
+  {
+    id: 'support',
+    name: 'З підтримкою',
+    price: 599,
+    description:
+      'Для тих, хто хоче швидше заговорити, отримувати підтримку та впевнено використовувати англійську на практиці.',
+    features: MARATHON_TARIFF_FEATURES,
+    featured: true,
+    badge: '🔥 Найпопулярніший',
+  },
+] as const
+
+export const MARATHON_DEFAULT_TARIFF_ID = 'support'
+
+export function getMarathonTariff(id: string): MarathonTariff | undefined {
+  return MARATHON_TARIFFS.find((tariff) => tariff.id === id)
+}
+
+export const MARATHON_PRICE_FROM = Math.min(...MARATHON_TARIFFS.map((tariff) => tariff.price))
+export const MARATHON_PRICE =
+  getMarathonTariff(MARATHON_DEFAULT_TARIFF_ID)?.price ?? MARATHON_PRICE_FROM
 
 export const TELEGRAM_BOT_URL =
   process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL ?? 'https://t.me/TeleBotsNowayrmBot'
 
+export const LESSON_VIDEOS = [
+  {
+    id: 'lesson-intro',
+    srcBase: '/videos/lessons/lesson-intro',
+    poster: '/videos/lessons/lesson-intro-poster.webp',
+    tag: '🎬 Відеоурок',
+    title: 'Зрозуміле пояснення граматики',
+    caption: 'Короткі відео з простими прикладами — дивіться у зручний для вас час.',
+  },
+  {
+    id: 'lesson-practice',
+    srcBase: '/videos/lessons/lesson-practice',
+    poster: '/videos/lessons/lesson-practice-poster.webp',
+    tag: '💬 Практика',
+    title: 'Живе спілкування та закріплення',
+    caption: 'Speaking, відповіді на запитання та практика, яка допомагає не боятися говорити.',
+  },
+] as const
+
 export const SITE_NAV = [
   { href: '/#pro-marafon', label: 'Про марафон' },
   { href: '/#programa', label: 'Програма' },
+  { href: '/#tarify', label: 'Тарифи' },
   { href: '/#faq', label: 'Питання' },
 ] as const
 

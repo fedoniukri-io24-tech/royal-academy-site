@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { SITE_HERO_IMAGE, SITE_NAME } from '../site'
+import { MARATHON_PRICE, MARATHON_PRICE_FROM, SITE_HERO_IMAGE, SITE_NAME } from '../site'
 import TimerCard from './TimerCard'
 import styles from './Hero.module.css'
 
@@ -39,12 +39,12 @@ export default function Hero() {
           <div className={styles.priceBlock}>
             <p className={styles.priceLead}>Приєднуйся до марафону вже зараз</p>
             <p className={styles.priceRow}>
-              <span className={styles.pricePrefix}>лише за</span>
-              <span className={styles.newPrice}>490 грн</span>
-              <span className={styles.priceInstead}>замість</span>
-              <span className={styles.oldPrice}>2 450 грн</span>
+              <span className={styles.pricePrefix}>тариф «З підтримкою»</span>
+              <span className={styles.newPrice}>{MARATHON_PRICE} грн</span>
+              <span className={styles.priceInstead}>або від</span>
+              <span className={styles.oldPrice}>{MARATHON_PRICE_FROM} грн</span>
             </p>
-            <span className={styles.discountBadge}>Знижка 80%</span>
+            <span className={styles.discountBadge}>🔥 Найпопулярніший тариф</span>
           </div>
           <TimerCard />
         </div>

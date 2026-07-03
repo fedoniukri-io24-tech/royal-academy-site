@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import {
-  MARATHON_PRICE,
+  MARATHON_PRICE_FROM,
   SITE_DESCRIPTION,
   SITE_HERO_IMAGE,
   SITE_KEYWORDS,
@@ -72,7 +72,7 @@ export const rootMetadata: Metadata = {
     apple: SITE_LOGO,
   },
   other: {
-    'product:price:amount': String(MARATHON_PRICE),
+    'product:price:amount': String(MARATHON_PRICE_FROM),
     'product:price:currency': 'UAH',
   },
 }

@@ -2,8 +2,9 @@ import CtaBlock from './CtaBlock'
 import PaymentButton from './PaymentButton'
 import ScenarioGrid from './ScenarioGrid'
 import FaqAccordion from './FaqAccordion'
+import LessonVideos from './LessonVideos'
 import Image from 'next/image'
-import { SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
+import { MARATHON_TARIFFS, SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
 import styles from './MarathonSections.module.css'
 
 const BENEFITS = [
@@ -240,6 +241,8 @@ export default function MarathonSections() {
         </div>
       </section>
 
+      <LessonVideos />
+
       {/* Audience */}
       <section className={`${styles.section} ${styles.mutedFromWhite}`}>
         <div className={styles.container}>
@@ -304,6 +307,52 @@ export default function MarathonSections() {
       </section>
 
       {/* FAQ */}
+      <section id="tarify" className={`${styles.section} ${styles.pricingSection}`}>
+        <div className={styles.container}>
+          <SectionTitle>Оберіть свій тариф</SectionTitle>
+          <p className={styles.pricingLead}>
+            Обидва тарифи включають повну програму марафону. Різниця — у форматі проходження та рівні підтримки.
+          </p>
+          <div className={styles.tariffGrid}>
+            {MARATHON_TARIFFS.map((tariff) => (
+              <article
+                key={tariff.id}
+                className={`${styles.tariffCard} ${tariff.featured ? styles.tariffFeatured : ''}`}
+              >
+                {tariff.badge && <span className={styles.tariffBadge}>{tariff.badge}</span>}
+                <div className={styles.tariffHeader}>
+                  <h3 className={styles.tariffName}>{tariff.name}</h3>
+                  <p className={styles.tariffPrice}>
+                    <span className={styles.tariffAmount}>{tariff.price}</span>
+                    <span className={styles.tariffCurrency}>грн</span>
+                  </p>
+                </div>
+                <p className={styles.tariffDescription}>{tariff.description}</p>
+                <ul className={styles.tariffFeatures}>
+                  {tariff.features.map((feature) => (
+                    <li key={feature}>
+                      <span className={styles.tariffCheck} aria-hidden="true">✓</span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <PaymentButton
+                  className={`${styles.tariffCta} ${tariff.featured ? styles.tariffCtaFeatured : ''}`}
+                  tariffId={tariff.id}
+                  aria-label={`Обрати тариф ${tariff.name} за ${tariff.price} грн`}
+                >
+                  Обрати тариф «{tariff.name}»
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M2 14 L14 2 M6 2 H14 V10" />
+                  </svg>
+                </PaymentButton>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
       <section id="faq" className={`${styles.section} ${styles.mutedFromWhite}`}>
         <div className={styles.container}>
           <SectionTitle>Відповіді на популярні питання</SectionTitle>
@@ -322,12 +371,22 @@ export default function MarathonSections() {
                 Ви будете далі думати &ldquo;треба вивчити англійську&rdquo;, чи вже почнете говорити?
               </p>
             </div>
-            <PaymentButton className={styles.finalCta} aria-label="Приєднатись до марафону за 490 грн">
-              🚀 Приєднатись до марафону за 490 грн
+            <PaymentButton
+              className={styles.finalCta}
+              tariffId="support"
+              aria-label="Приєднатись до марафону за 599 грн"
+            >
+              🚀 Приєднатись до марафону за 599 грн
               <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M2 14 L14 2 M6 2 H14 V10" />
               </svg>
             </PaymentButton>
+            <p className={styles.finalAltPrice}>
+              Або оберіть тариф «Я сама» за{' '}
+              <PaymentButton className={styles.finalAltLink} tariffId="solo">
+                399 грн
+              </PaymentButton>
+            </p>
           </div>
         </div>
       </section>

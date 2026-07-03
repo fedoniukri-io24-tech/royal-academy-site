@@ -1,4 +1,5 @@
 import TimerCard from './TimerCard'
+import { MARATHON_PRICE, MARATHON_PRICE_FROM } from '../site'
 import styles from './CtaBlock.module.css'
 
 export default function CtaBlock() {
@@ -7,8 +8,8 @@ export default function CtaBlock() {
       <div className={styles.inner}>
         <div className={styles.left}>
           <p className={styles.price}>
-            Приєднуйся за <span className={styles.newPrice}>490 грн</span>{' '}
-            <span className={styles.oldPrice}>замість 2 450 грн</span>
+            Тариф «З підтримкою» — <span className={styles.newPrice}>{MARATHON_PRICE} грн</span>{' '}
+            <span className={styles.oldPrice}>або від {MARATHON_PRICE_FROM} грн</span>
           </p>
           <p className={styles.note}>Місця обмежені. Акція діє до кінця дня</p>
         </div>

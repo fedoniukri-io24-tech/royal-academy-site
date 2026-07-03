@@ -1,5 +1,6 @@
 import {
-  MARATHON_PRICE,
+  MARATHON_PRICE_FROM,
+  MARATHON_TARIFFS,
   SITE_DESCRIPTION,
   SITE_EMAIL,
   SITE_FAQ,
@@ -61,13 +62,14 @@ export default function StructuredData() {
     },
     educationalLevel: 'Beginner',
     inLanguage: 'uk',
-    offers: {
+    offers: MARATHON_TARIFFS.map((tariff) => ({
       '@type': 'Offer',
-      price: String(MARATHON_PRICE),
+      name: `Тариф «${tariff.name}»`,
+      price: String(tariff.price),
       priceCurrency: 'UAH',
       availability: 'https://schema.org/InStock',
-      url: `${SITE_URL}/#kontakt`,
-    },
+      url: `${SITE_URL}/#tarify`,
+    })),
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'online',

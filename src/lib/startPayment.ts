@@ -1,6 +1,7 @@
 export type PaymentPayload = {
   name: string
   contact: string
+  tariffId?: string
 }
 
 export async function startPayment(payload: PaymentPayload): Promise<void> {
