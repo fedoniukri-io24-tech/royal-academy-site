@@ -263,6 +263,10 @@
   gap: clamp(32px, 5vw, 48px);
 }
 
+.durationStats {
+  align-self: flex-start;
+}
+
 .benefitGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

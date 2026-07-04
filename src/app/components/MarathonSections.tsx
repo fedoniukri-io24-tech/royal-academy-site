@@ -3,6 +3,7 @@ import PaymentButton from './PaymentButton'
 import ScenarioGrid from './ScenarioGrid'
 import FaqAccordion from './FaqAccordion'
 import LessonVideos from './LessonVideos'
+import MarathonStats from './MarathonStats'
 import Image from 'next/image'
 import { MARATHON_TARIFFS, SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
 import styles from './MarathonSections.module.css'
@@ -136,6 +137,7 @@ export default function MarathonSections() {
           </div>
 
           <div id="pro-marafon" className={styles.marathonAbout}>
+            <MarathonStats className={styles.durationStats} />
             <p className={styles.leadBox}>
               Саме тому ми створили <strong>10-тижневий марафон</strong>, який допомагає не просто
               дивитися уроки, а <em>реально почати використовувати англійську.</em> Плюс{' '}

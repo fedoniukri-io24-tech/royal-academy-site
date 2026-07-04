@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import BrandLogo from './BrandLogo'
 import PaymentButton from './PaymentButton'
-import { PRIVACY_POLICY_PATH, SITE_EMAIL, SITE_NAME, SITE_NAV, SITE_PHONE, SITE_PHONE_DISPLAY, TELEBOTS_URL } from '../site'
+import { MARATHON_DURATION_STATS, PRIVACY_POLICY_PATH, SITE_EMAIL, SITE_NAME, SITE_NAV, SITE_PHONE, SITE_PHONE_DISPLAY, TELEBOTS_URL } from '../site'
 import styles from './Footer.module.css'
 
 export default function Footer() {
@@ -11,8 +11,7 @@ export default function Footer() {
         <div className={styles.cols}>
           <div className={styles.col}>
             <h3>Формат</h3>
-            <p>10 тем за 10 занять</p>
-            <p>70 днів підтримки від куратора</p>
+            <p>{MARATHON_DURATION_STATS.join(' · ')}</p>
             <PaymentButton className={styles.inlineLink} aria-label="Оформити доступ">
               Оформити доступ →
             </PaymentButton>

@@ -18,7 +18,7 @@ export const SITE_URL = normalizeSiteUrl(
 
 export const SITE_TITLE = `${SITE_NAME} | Марафон англійської за 10 занять`
 export const SITE_DESCRIPTION =
-  '10-тижневий онлайн-марафон англійської для рівня A1: 10 занять, speaking-практика, перевірка домашніх завдань і розіграш 10 000 грн. Тарифи від 399 грн.'
+  '10-тижневий онлайн-марафон англійської для рівня A1: 10 занять · 10 тижнів · 70 днів підтримки. Speaking-практика, перевірка домашніх завдань і розіграш 10 000 грн. Тарифи від 399 грн.'
 
 export const SITE_KEYWORDS = [
   'Royal Academy School',
@@ -36,6 +36,12 @@ export const SITE_PHONE = '+380971234567'
 export const SITE_PHONE_DISPLAY = '+380 97 123 45 67'
 
 export const SITE_THEME_COLOR = '#C41E3A'
+
+export const MARATHON_DURATION_STATS = [
+  '10 занять',
+  '10 тижнів',
+  '70 днів підтримки',
+] as const
 
 export const MARATHON_TARIFF_FEATURES = [
   'Авторська програма з англійської від Жаборовської Тетяни з простим і зрозумілим поясненням граматики',
