@@ -5,7 +5,7 @@ import FaqAccordion from './FaqAccordion'
 import LessonVideos from './LessonVideos'
 import MarathonStats from './MarathonStats'
 import Image from 'next/image'
-import { MARATHON_TARIFFS, SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
+import { formatPriceUAH, MARATHON_TARIFFS, SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
 import styles from './MarathonSections.module.css'
 
 const BENEFITS = [
@@ -325,6 +325,7 @@ export default function MarathonSections() {
                 <div className={styles.tariffHeader}>
                   <h3 className={styles.tariffName}>{tariff.name}</h3>
                   <p className={styles.tariffPrice}>
+                    <span className={styles.tariffOldPrice}>{formatPriceUAH(tariff.oldPrice)}</span>
                     <span className={styles.tariffAmount}>{tariff.price}</span>
                     <span className={styles.tariffCurrency}>грн</span>
                   </p>

@@ -68,6 +68,7 @@ export type MarathonTariff = {
   id: string
   name: string
   price: number
+  oldPrice: number
   description: string
   features: readonly string[]
   excludedFeatures?: readonly string[]
@@ -75,11 +76,20 @@ export type MarathonTariff = {
   badge?: string
 }
 
+export function formatPriceUAH(amount: number): string {
+  return `${amount.toLocaleString('uk-UA')} грн`
+}
+
+export function getMarathonDiscountPercent(tariff: MarathonTariff): number {
+  return Math.round((1 - tariff.price / tariff.oldPrice) * 100)
+}
+
 export const MARATHON_TARIFFS: readonly MarathonTariff[] = [
   {
     id: 'solo',
     name: 'Я сама',
     price: 399,
+    oldPrice: 1995,
     description:
       'Для тих, хто хоче пройти марафон у власному темпі та самостійно закріпити знання.',
     features: MARATHON_TARIFF_FEATURES,
@@ -89,6 +99,7 @@ export const MARATHON_TARIFFS: readonly MarathonTariff[] = [
     id: 'support',
     name: 'З підтримкою',
     price: 599,
+    oldPrice: 2995,
     description:
       'Для тих, хто хоче швидше заговорити, отримувати підтримку та впевнено використовувати англійську на практиці.',
     features: MARATHON_TARIFF_FEATURES,

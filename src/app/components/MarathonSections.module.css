@@ -934,9 +934,19 @@
 
 .tariffPrice {
   display: flex;
-  align-items: baseline;
-  gap: 4px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
   flex-shrink: 0;
+}
+
+.tariffOldPrice {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--slate);
+  text-decoration: line-through;
+  text-decoration-color: rgba(var(--deep-rgb), 0.35);
+  line-height: 1.2;
 }
 
 .tariffAmount {
