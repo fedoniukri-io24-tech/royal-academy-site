@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image'
 import { MARATHON_PRICE, MARATHON_PRICE_FROM, SITE_HERO_IMAGE, SITE_NAME } from '../site'
-import MarathonStats from './MarathonStats'
 import TimerCard from './TimerCard'
 import styles from './Hero.module.css'
 
@@ -26,8 +25,6 @@ export default function Hero() {
             Почни говорити <em>англійською</em>{' '}
             <span className={styles.highlight}>вже за 10 занять</span>
           </h1>
-
-          <MarathonStats variant="dark" className={styles.durationStats} />
 
           <p className={styles.prizeBlock}>
             <span className={styles.prizeLabel}>
