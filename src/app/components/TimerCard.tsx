@@ -1,24 +1,18 @@
 'use client'
 import useCountdown from '../hooks/useCountdown'
-import {
-  formatPriceUAH,
-  getMarathonDiscountPercent,
-  getMarathonTariff,
-  MARATHON_DEFAULT_TARIFF_ID,
-} from '../site'
+import { formatPrice, getMarathonTariff } from '../site'
 import PaymentButton from './PaymentButton'
 import styles from './TimerCard.module.css'
 
-const featuredTariff = getMarathonTariff(MARATHON_DEFAULT_TARIFF_ID)!
+const supportTariff = getMarathonTariff('support')!
 
 export default function TimerCard({ className = '' }: { className?: string }) {
   const time = useCountdown()
-  const discount = getMarathonDiscountPercent(featuredTariff)
 
   return (
     <PaymentButton
       className={`${styles.card} ${className}`}
-      aria-label={`Оформити доступ за ${featuredTariff.price} грн замість ${featuredTariff.oldPrice} грн`}
+      aria-label={`Оформити доступ: ${formatPrice(supportTariff.oldPrice)} грн замість ${formatPrice(supportTariff.price)} грн`}
     >
       <div className={styles.cardText}>
         <p className={styles.timer}>
@@ -26,12 +20,11 @@ export default function TimerCard({ className = '' }: { className?: string }) {
           <b>{time.m}</b><span>хв</span>
           <b>{time.s}</b><span>с</span>
         </p>
-        <p className={styles.cardPrice}>
-          <span className={styles.cardOldPrice}>{formatPriceUAH(featuredTariff.oldPrice)}</span>
-          <span className={styles.cardArrowSign} aria-hidden="true">→</span>
-          <span className={styles.cardNewPrice}>{formatPriceUAH(featuredTariff.price)}</span>
+        <p className={styles.cardLabel}>
+          <span className={styles.cardOldPrice}>{formatPrice(supportTariff.oldPrice)} грн</span>
+          <span className={styles.cardArrowPrice} aria-hidden="true">→</span>
+          <span className={styles.cardNewPrice}>{formatPrice(supportTariff.price)} грн</span>
         </p>
-        <p className={styles.cardLabel}>Оформити доступ · знижка {discount}%</p>
       </div>
       <div className={styles.cardArrow}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

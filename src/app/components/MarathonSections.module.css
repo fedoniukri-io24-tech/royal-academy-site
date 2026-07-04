@@ -932,7 +932,7 @@
   color: var(--deep);
 }
 
-.tariffPrice {
+.tariffPriceWrap {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -941,23 +941,29 @@
 }
 
 .tariffOldPrice {
-  font-size: 15px;
+  font-size: clamp(13px, 1.4vw, 15px);
   font-weight: 600;
   color: var(--slate);
   text-decoration: line-through;
-  text-decoration-color: rgba(var(--deep-rgb), 0.35);
   line-height: 1.2;
 }
 
+.tariffPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+}
+
 .tariffAmount {
-  font-size: clamp(34px, 4vw, 44px);
+  font-size: clamp(28px, 3.2vw, 38px);
   font-weight: 900;
   line-height: 1;
   color: var(--sky);
 }
 
 .tariffCurrency {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--slate);
 }

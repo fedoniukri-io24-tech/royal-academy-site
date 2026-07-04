@@ -1,12 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getMarathonDiscountPercent, getMarathonTariff, MARATHON_DEFAULT_TARIFF_ID } from '../site'
+import { formatPrice, getMarathonTariff } from '../site'
 import PaymentButton from './PaymentButton'
 import styles from './FloatingCta.module.css'
 
-const featuredTariff = getMarathonTariff(MARATHON_DEFAULT_TARIFF_ID)!
-const discount = getMarathonDiscountPercent(featuredTariff)
+const supportTariff = getMarathonTariff('support')!
 
 export default function FloatingCta() {
   const [visible, setVisible] = useState(false)
@@ -62,7 +61,9 @@ export default function FloatingCta() {
       disabled={!visible}
     >
       <span className={styles.label}>Приєднатися</span>
-      <span className={styles.discount}>-{discount}%</span>
+      <span className={styles.discount}>
+        {formatPrice(supportTariff.oldPrice)} → {formatPrice(supportTariff.price)}
+      </span>
       <svg className={styles.arrow} width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M2 14 L14 2 M6 2 H14 V10" />
       </svg>

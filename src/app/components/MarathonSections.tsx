@@ -5,7 +5,7 @@ import FaqAccordion from './FaqAccordion'
 import LessonVideos from './LessonVideos'
 import MarathonStats from './MarathonStats'
 import Image from 'next/image'
-import { formatPriceUAH, MARATHON_TARIFFS, SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
+import { MARATHON_TARIFFS, formatPrice, SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
 import styles from './MarathonSections.module.css'
 
 const BENEFITS = [
@@ -324,11 +324,15 @@ export default function MarathonSections() {
                 {tariff.badge && <span className={styles.tariffBadge}>{tariff.badge}</span>}
                 <div className={styles.tariffHeader}>
                   <h3 className={styles.tariffName}>{tariff.name}</h3>
-                  <p className={styles.tariffPrice}>
-                    <span className={styles.tariffOldPrice}>{formatPriceUAH(tariff.oldPrice)}</span>
-                    <span className={styles.tariffAmount}>{tariff.price}</span>
-                    <span className={styles.tariffCurrency}>грн</span>
-                  </p>
+                  <div className={styles.tariffPriceWrap}>
+                    <span className={styles.tariffOldPrice}>
+                      {formatPrice(tariff.oldPrice)} грн
+                    </span>
+                    <p className={styles.tariffPrice}>
+                      <span className={styles.tariffAmount}>{formatPrice(tariff.price)}</span>
+                      <span className={styles.tariffCurrency}>грн</span>
+                    </p>
+                  </div>
                 </div>
                 <p className={styles.tariffDescription}>{tariff.description}</p>
                 <ul className={styles.tariffFeatures}>

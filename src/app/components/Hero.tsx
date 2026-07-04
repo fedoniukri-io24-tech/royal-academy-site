@@ -1,21 +1,11 @@
 'use client'
 import Image from 'next/image'
-import {
-  formatPriceUAH,
-  getMarathonDiscountPercent,
-  getMarathonTariff,
-  MARATHON_DEFAULT_TARIFF_ID,
-  MARATHON_TARIFFS,
-  SITE_HERO_IMAGE,
-  SITE_NAME,
-} from '../site'
+import { getMarathonTariff, formatPrice, SITE_HERO_IMAGE, SITE_NAME } from '../site'
 import TimerCard from './TimerCard'
 import styles from './Hero.module.css'
 
-const featuredTariff = getMarathonTariff(MARATHON_DEFAULT_TARIFF_ID)!
-const displayTariffs = [...MARATHON_TARIFFS].sort(
-  (a, b) => Number(b.featured) - Number(a.featured),
-)
+const supportTariff = getMarathonTariff('support')!
+const soloTariff = getMarathonTariff('solo')!
 
 export default function Hero() {
   return (
@@ -50,20 +40,20 @@ export default function Hero() {
 
         <div className={styles.bottomRow}>
           <div className={styles.priceBlock}>
+            <span className={styles.discountBadge}>🔥 Найпопулярніший тариф</span>
             <p className={styles.priceLead}>Приєднуйся до марафону вже зараз</p>
-            <div className={styles.priceRows}>
-              {displayTariffs.map((tariff) => (
-                <p key={tariff.id} className={styles.priceRow}>
-                  <span className={styles.priceTariffName}>«{tariff.name}»</span>
-                  <span className={styles.oldPrice}>{formatPriceUAH(tariff.oldPrice)}</span>
-                  <span className={styles.priceInstead}>→</span>
-                  <span className={styles.newPrice}>{formatPriceUAH(tariff.price)}</span>
-                </p>
-              ))}
-            </div>
-            <span className={styles.discountBadge}>
-              Знижка {getMarathonDiscountPercent(featuredTariff)}%
-            </span>
+            <p className={styles.priceRow}>
+              <span className={styles.pricePrefix}>«З підтримкою»</span>
+              <span className={styles.oldPrice}>{formatPrice(supportTariff.oldPrice)} грн</span>
+              <span className={styles.priceInstead}>→</span>
+              <span className={styles.newPrice}>{formatPrice(supportTariff.price)} грн</span>
+            </p>
+            <p className={styles.priceRow}>
+              <span className={styles.pricePrefix}>«Я сама»</span>
+              <span className={styles.oldPrice}>{formatPrice(soloTariff.oldPrice)} грн</span>
+              <span className={styles.priceInstead}>→</span>
+              <span className={styles.newPrice}>{formatPrice(soloTariff.price)} грн</span>
+            </p>
           </div>
           <TimerCard />
         </div>

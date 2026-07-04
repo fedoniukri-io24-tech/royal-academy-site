@@ -23,12 +23,33 @@
 
 .cardText { flex: 1; }
 .cardLabel {
-  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.01em;
   color: var(--deep);
   margin-top: 10px;
   line-height: 1.35;
+}
+
+.cardOldPrice {
+  color: var(--slate);
+  text-decoration: line-through;
+  font-weight: 600;
+}
+
+.cardArrowPrice {
+  color: var(--sky);
+  font-weight: 800;
+}
+
+.cardNewPrice {
+  color: var(--sky);
+  font-size: 14px;
+  font-weight: 900;
 }
 .timer {
   font-size: 30px;
@@ -39,39 +60,6 @@
 }
 .timer b { font-weight: 800; }
 .timer span { font-size: 17px; font-weight: 500; color: var(--slate); margin: 0 5px 0 2px; }
-
-.cardPrice {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 8px;
-  margin: 10px 0 0;
-  line-height: 1.1;
-}
-
-.cardOldPrice {
-  font-size: 15px;
-  font-weight: 600;
-  color: rgba(var(--deep-rgb), 0.45);
-  text-decoration: line-through;
-}
-
-.cardArrowSign {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--slate);
-}
-
-.cardNewPrice {
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--sky);
-  letter-spacing: -0.02em;
-}
-
-.cardLabel {
-  margin-top: 8px;
-}
 
 .cardArrow {
   width: 50px; height: 50px;
@@ -94,8 +82,8 @@
 
   .timer { font-size: 26px; }
   .timer span { font-size: 16px; }
-  .cardLabel { font-size: 13px; margin-top: 8px; }
-  .cardNewPrice { font-size: 20px; }
+  .cardLabel { font-size: 11px; margin-top: 8px; }
+  .cardNewPrice { font-size: 13px; }
   .cardArrow { width: 46px; height: 46px; }
 }
 
@@ -108,8 +96,6 @@
     gap: 16px;
   }
   .cardLabel { margin-top: 8px; font-size: 13px; }
-  .cardNewPrice { font-size: 18px; }
-  .cardOldPrice { font-size: 14px; }
   .timer { font-size: 24px; }
   .timer span { font-size: 15px; }
   .cardArrow { width: 46px; height: 46px; }

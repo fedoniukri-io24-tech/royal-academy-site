@@ -167,53 +167,46 @@
 
 .priceLead {
   margin: 0;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.78);
 }
 
-.priceRows {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .priceRow {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 8px 10px;
+  gap: 6px 8px;
   margin: 0;
   line-height: 1.1;
 }
 
-.priceTariffName,
 .pricePrefix,
 .priceInstead {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.88);
 }
 
 .oldPrice {
-  font-size: clamp(19px, 2.4vw, 24px);
+  font-size: clamp(14px, 1.8vw, 17px);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.5);
   text-decoration: line-through;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 1.5px;
 }
 
 .newPrice {
   position: relative;
   display: inline-block;
-  font-size: clamp(32px, 4.6vw, 46px);
+  font-size: clamp(24px, 3.4vw, 34px);
   font-weight: 900;
   color: #fff;
   letter-spacing: -0.03em;
   text-decoration: none;
-  padding-bottom: 0.14em;
+  padding-bottom: 0.1em;
 }
 
 .newPrice::after {
@@ -237,7 +230,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.95);
   color: var(--sky);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -380,20 +373,20 @@
   }
 
   .priceLead {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .pricePrefix,
   .priceInstead {
-    font-size: 16px;
+    font-size: 13px;
   }
 
   .newPrice {
-    font-size: 38px;
+    font-size: 28px;
   }
 
   .oldPrice {
-    font-size: 19px;
+    font-size: 14px;
   }
 }
 
@@ -427,7 +420,7 @@
   }
 
   .newPrice {
-    font-size: 34px;
+    font-size: 26px;
   }
 }
 

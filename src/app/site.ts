@@ -76,12 +76,8 @@ export type MarathonTariff = {
   badge?: string
 }
 
-export function formatPriceUAH(amount: number): string {
-  return `${amount.toLocaleString('uk-UA')} грн`
-}
-
-export function getMarathonDiscountPercent(tariff: MarathonTariff): number {
-  return Math.round((1 - tariff.price / tariff.oldPrice) * 100)
+export function formatPrice(amount: number): string {
+  return amount.toLocaleString('uk-UA')
 }
 
 export const MARATHON_TARIFFS: readonly MarathonTariff[] = [
