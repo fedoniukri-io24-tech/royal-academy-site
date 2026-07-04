@@ -50,12 +50,21 @@ export const MARATHON_TARIFF_FEATURES = [
   'Бонусна система з можливістю виграти 10 000 грн та інші подарунки',
 ] as const
 
+export const MARATHON_SOLO_EXCLUDED_FEATURES = [
+  'PDF-конспект із додатковими ресурсами та корисними матеріалами',
+  'Перевірка домашніх завдань і персональний фідбек',
+  '4 Zoom-сесії для практики та закріплення знань',
+  'Живе спілкування, практика та відповіді на запитання',
+  'Бонусна система з можливістю виграти 10 000 грн та інші подарунки',
+] as const
+
 export type MarathonTariff = {
   id: string
   name: string
   price: number
   description: string
   features: readonly string[]
+  excludedFeatures?: readonly string[]
   featured?: boolean
   badge?: string
 }
@@ -68,6 +77,7 @@ export const MARATHON_TARIFFS: readonly MarathonTariff[] = [
     description:
       'Для тих, хто хоче пройти марафон у власному темпі та самостійно закріпити знання.',
     features: MARATHON_TARIFF_FEATURES,
+    excludedFeatures: MARATHON_SOLO_EXCLUDED_FEATURES,
   },
   {
     id: 'support',

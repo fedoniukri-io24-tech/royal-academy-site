@@ -329,12 +329,26 @@ export default function MarathonSections() {
                 </div>
                 <p className={styles.tariffDescription}>{tariff.description}</p>
                 <ul className={styles.tariffFeatures}>
-                  {tariff.features.map((feature) => (
-                    <li key={feature}>
-                      <span className={styles.tariffCheck} aria-hidden="true">✓</span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
+                  {tariff.features.map((feature) => {
+                    const excluded = tariff.excludedFeatures?.includes(feature)
+
+                    return (
+                      <li
+                        key={feature}
+                        className={excluded ? styles.tariffFeatureExcluded : undefined}
+                      >
+                        <span
+                          className={excluded ? styles.tariffCross : styles.tariffCheck}
+                          aria-hidden="true"
+                        >
+                          {excluded ? '✕' : '✓'}
+                        </span>
+                        <span className={excluded ? styles.tariffFeatureTextExcluded : undefined}>
+                          {feature}
+                        </span>
+                      </li>
+                    )
+                  })}
                 </ul>
                 <PaymentButton
                   className={`${styles.tariffCta} ${tariff.featured ? styles.tariffCtaFeatured : ''}`}

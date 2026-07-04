@@ -995,6 +995,31 @@
   color: #fff;
 }
 
+.tariffFeatureExcluded {
+  opacity: 0.72;
+}
+
+.tariffFeatureTextExcluded {
+  text-decoration: line-through;
+  text-decoration-color: rgba(var(--deep-rgb), 0.35);
+  color: var(--slate);
+}
+
+.tariffCross {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(var(--deep-rgb), 0.08);
+  color: rgba(var(--deep-rgb), 0.45);
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
 .tariffCta {
   display: inline-flex;
   align-items: center;
