@@ -6,6 +6,7 @@ import {
   type MonoWebhookPayload,
 } from '@/lib/mono'
 import { extractCustomerFromMonoPayload } from '@/lib/extractCustomerFromMonoPayload'
+import { inviteStudentToCourse } from '@/lib/edio'
 import { sendPaymentNotification } from '@/lib/telegram'
 import { MARATHON_PRICE } from '@/app/site'
 
@@ -63,15 +64,37 @@ export async function POST(req: NextRequest) {
         invoiceId
 
       const amountSource = invoice?.amount ?? payload.amount
+      const email = customer?.email?.trim() ?? ''
+
+      let edioStatus = 'не викликано'
+      if (!email) {
+        edioStatus = 'немає email у платежі'
+        console.error('[mono-webhook] Missing email for Edio invite', { invoiceId, reference })
+      } else {
+        try {
+          const invite = await inviteStudentToCourse(email)
+          if (invite.ok) {
+            edioStatus = 'запрошення надіслано'
+          } else {
+            edioStatus = `помилка: ${invite.error}`
+            console.error('[mono-webhook] Edio invite failed:', invite)
+          }
+        } catch (error) {
+          edioStatus = error instanceof Error ? error.message : 'помилка Edio'
+          console.error('[mono-webhook] Edio invite exception:', error)
+        }
+      }
 
       try {
         await sendPaymentNotification({
           name: customer?.name ?? 'Не вказано',
+          email: email || '—',
           phone: customer?.phone || '—',
           telegram: customer?.telegram || '',
           amount: amountSource ? amountSource / 100 : MARATHON_PRICE,
           invoiceId,
           reference,
+          edioStatus,
         })
       } catch (error) {
         console.error('[mono-webhook] Telegram notification failed:', error)

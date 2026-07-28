@@ -1,5 +1,6 @@
 export type PaymentCustomerData = {
   name: string
+  email: string
   phone: string
   telegram: string
 }
@@ -8,6 +9,7 @@ const META_PREFIX = '__RA__'
 
 type CompactMeta = {
   n: string
+  e: string
   p: string
   t: string
 }
@@ -15,6 +17,7 @@ type CompactMeta = {
 export function encodePaymentMeta(data: PaymentCustomerData): string {
   const compact: CompactMeta = {
     n: data.name,
+    e: data.email,
     p: data.phone,
     t: data.telegram,
   }
@@ -36,6 +39,7 @@ export function decodePaymentMeta(source?: string | null): PaymentCustomerData |
       if (!parsed.name || typeof parsed.name !== 'string') return null
       return {
         name: parsed.name,
+        email: typeof parsed.email === 'string' ? parsed.email : '',
         phone: typeof parsed.phone === 'string' ? parsed.phone : '',
         telegram: typeof parsed.telegram === 'string' ? parsed.telegram : '',
       }
@@ -47,6 +51,7 @@ export function decodePaymentMeta(source?: string | null): PaymentCustomerData |
 
     return {
       name: parsed.n,
+      email: typeof parsed.e === 'string' ? parsed.e : '',
       phone: typeof parsed.p === 'string' ? parsed.p : '',
       telegram: typeof parsed.t === 'string' ? parsed.t : '',
     }

@@ -26,6 +26,7 @@ export default function SuccessPage({ searchParams }: Props) {
           <div className={styles.includes}>
             <p className={styles.includesTitle}>Що далі:</p>
             <ul>
+              <li>Перевірте email — туди надійде запрошення від платформи Edio з доступом до занять</li>
               {MARATHON_INCLUDES.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -45,7 +46,7 @@ export default function SuccessPage({ searchParams }: Props) {
           </a>
 
           <p className={styles.note}>
-            Натисніть кнопку вище, щоб отримати доступ до уроків у Telegram-боті.
+            Заняття будуть на платформі Edio (лист на пошту). Також можете перейти в Telegram-бот за кнопкою вище.
           </p>
 
           <Link href="/" className={styles.homeLink}>

@@ -19,6 +19,7 @@ import styles from './PaymentModal.module.css'
 
 type PaymentFormState = {
   name: string
+  email: string
   contact: string
   consent: boolean
 }
@@ -31,6 +32,7 @@ const PaymentContext = createContext<PaymentContextValue | null>(null)
 
 const emptyForm = (): PaymentFormState => ({
   name: '',
+  email: '',
   contact: '',
   consent: false,
 })
@@ -86,10 +88,16 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
     e.preventDefault()
 
     const name = form.name.trim()
+    const email = form.email.trim().toLowerCase()
     const contact = form.contact.trim()
 
     if (!name) {
       setError('Вкажіть ім\'я')
+      return
+    }
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      setError('Вкажіть коректний email')
       return
     }
 
@@ -104,7 +112,7 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
     setError('')
 
     try {
-      await startPayment({ name, contact, tariffId: selectedTariff.id })
+      await startPayment({ name, email, contact, tariffId: selectedTariff.id })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Сталася помилка. Спробуйте ще раз.')
       setLoading(false)
@@ -134,7 +142,7 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
                   Оформлення доступу
                 </h2>
                 <p className={styles.subtitle}>
-                  Тариф «{selectedTariff.name}» — {selectedTariff.price} грн. Заповніть дані, після цього відкриється оплата.
+                  Тариф «{selectedTariff.name}» — {selectedTariff.price} грн. Після оплати доступ до курсу надішлемо на email.
                 </p>
               </div>
               <button type="button" className={styles.close} onClick={close} aria-label="Закрити">
@@ -178,6 +186,22 @@ export function PaymentProvider({ children }: { children: ReactNode }) {
                   required
                   autoFocus
                 />
+              </div>
+
+              <div className={styles.field}>
+                <label htmlFor="payment-email">Email</label>
+                <input
+                  id="payment-email"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={form.email}
+                  onChange={setField('email')}
+                  required
+                  autoComplete="email"
+                />
+                <p className={styles.hint}>
+                  На цю адресу надійде запрошення до курсу на платформі Edio
+                </p>
               </div>
 
               <div className={styles.field}>

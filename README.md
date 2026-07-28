@@ -33,15 +33,18 @@ src/app/
     └── Footer.tsx
 ```
 
-## Оплата (Monobank)
+## Оплата (Monobank) + доступ до курсу (Edio)
 
 1. Скопіюйте `.env.example` у `.env` і заповніть змінні
 2. `MONO_TOKEN` — токен з [web.monobank.ua](https://web.monobank.ua) (тільки на сервері)
 3. `TELEGRAM_BOT_TOKEN` та `TELEGRAM_CHAT_ID` — для сповіщень про оплату в групу
 4. `NEXT_PUBLIC_TELEGRAM_BOT_URL` — посилання на бот для сторінки `/success`
 5. `NEXT_PUBLIC_SITE_URL` — публічний URL сайту (потрібен для webhook Monobank)
+6. `EDIO_API_TOKEN`, `EDIO_SCHOOL_ID`, `EDIO_PRODUCT_ID` — запрошення студента на курс після оплати
 
-Потік: форма → `/api/payment/create` → Monobank → webhook `/api/mono-webhook` → Telegram → redirect `/success`
+Потік: форма (імʼя + email + контакт) → `/api/payment/create` → Monobank → webhook `/api/mono-webhook` → Edio invite + Telegram → redirect `/success`
+
+Після успішної оплати сайт викликає Edio API `inviteStudentToCourse`. Edio сам надсилає лист із доступом до курсу. Обидва тарифи ведуть на один і той самий продукт.
 
 ## SEO
 

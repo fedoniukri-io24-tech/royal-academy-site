@@ -31,11 +31,13 @@ async function sendTelegramMessage(text: string): Promise<void> {
 
 export type PaymentNotificationData = {
   name: string
+  email: string
   phone: string
   telegram: string
   amount: number
   invoiceId: string
   reference: string
+  edioStatus?: string
 }
 
 export async function sendPaymentNotification(payment: PaymentNotificationData): Promise<void> {
@@ -44,6 +46,10 @@ export async function sendPaymentNotification(payment: PaymentNotificationData):
     '',
     `👤 <b>Ім'я:</b> ${escapeHtml(payment.name)}`,
   ]
+
+  if (payment.email && payment.email !== '—') {
+    lines.push(`✉️ <b>Email:</b> ${escapeHtml(payment.email)}`)
+  }
 
   if (payment.phone && payment.phone !== '—') {
     lines.push(`📞 <b>Телефон:</b> ${escapeHtml(payment.phone)}`)
@@ -58,6 +64,10 @@ export async function sendPaymentNotification(payment: PaymentNotificationData):
     `🧾 <b>Рахунок:</b> ${escapeHtml(payment.invoiceId)}`,
     `🔖 <b>Reference:</b> ${escapeHtml(payment.reference)}`,
   )
+
+  if (payment.edioStatus) {
+    lines.push(`🎓 <b>Edio:</b> ${escapeHtml(payment.edioStatus)}`)
+  }
 
   await sendTelegramMessage(lines.join('\n'))
 }

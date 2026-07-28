@@ -1,5 +1,6 @@
 export type PaymentPayload = {
   name: string
+  email: string
   contact: string
   tariffId?: string
 }
