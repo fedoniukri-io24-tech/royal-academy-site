@@ -62,46 +62,126 @@
   color: var(--deep);
 }
 
-.includes {
+.emailAlert {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
   text-align: left;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   padding: 20px 22px;
   border-radius: 18px;
-  background: linear-gradient(135deg, rgba(var(--sky-rgb), 0.06) 0%, #fff 100%);
-  border: 1px solid rgba(var(--sky-rgb), 0.12);
+  background: linear-gradient(135deg, rgba(var(--sky-rgb), 0.12) 0%, rgba(var(--sky-rgb), 0.04) 100%);
+  border: 1.5px solid rgba(var(--sky-rgb), 0.28);
+  box-shadow: 0 8px 28px rgba(var(--sky-rgb), 0.1);
 }
 
-.includesTitle {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--sky);
-  margin-bottom: 12px;
+.emailAlertIcon {
+  flex-shrink: 0;
+  font-size: 28px;
+  line-height: 1;
+  margin-top: 2px;
 }
 
-.includes ul {
-  list-style: none;
+.emailAlertBody {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.includes li {
-  position: relative;
-  padding-left: 22px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.5;
+.emailAlertTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--deep);
+  line-height: 1.3;
 }
 
-.includes li::before {
-  content: '✓';
+.emailAlertText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--slate);
+}
+
+.emailAlertText strong {
+  color: var(--deep);
+  font-weight: 800;
+}
+
+.emailAlertHint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--slate);
+  opacity: 0.9;
+}
+
+.steps {
+  text-align: left;
+  margin-bottom: 28px;
+  padding: 20px 22px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(var(--deep-rgb), 0.08);
+}
+
+.stepsTitle {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 14px;
+}
+
+.steps ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+
+.steps li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 40px;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
   position: absolute;
   left: 0;
-  color: var(--sky);
+  top: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--sky);
+  color: #fff;
+  font-size: 13px;
   font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.steps li strong {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--deep);
+  line-height: 1.35;
+}
+
+.steps li span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--slate);
 }
 
 .telegramBtn {
