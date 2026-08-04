@@ -16,9 +16,15 @@ export const SITE_URL = normalizeSiteUrl(
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://royalacademy.school',
 )
 
-export const SITE_TITLE = `${SITE_NAME} | Марафон англійської за 10 занять`
+export const SITE_TITLE = `${SITE_NAME} | Марафон англійської для початківців (A1)`
 export const SITE_DESCRIPTION =
-  '10-тижневий онлайн-марафон англійської для рівня A1: 10 занять · 10 тижнів · 70 днів підтримки. Speaking-практика, перевірка домашніх завдань і розіграш 10 000 грн. Тарифи від 399 грн.'
+  '10-тижневий онлайн-марафон англійської для початківців (рівень A1 / Beginner): базові теми, 10 занять · 10 тижнів · 70 днів підтримки. Старт 10 серпня. Тарифи від 399 грн.'
+
+export const MARATHON_LEVEL_LABEL = 'Beginner · A1'
+export const MARATHON_LEVEL_DESCRIPTION = 'Марафон базових тем для початківців'
+export const MARATHON_START_DATE = '10 серпня'
+export const MARATHON_START_LABEL = `Старт марафону з ${MARATHON_START_DATE}`
+export const EDIO_PLATFORM_URL = 'https://my.edio.ai/'
 
 export const SITE_KEYWORDS = [
   'Royal Academy School',
@@ -38,6 +44,7 @@ export const SITE_PHONE_DISPLAY = '+380 97 123 45 67'
 export const SITE_THEME_COLOR = '#C41E3A'
 
 export const MARATHON_DURATION_STATS = [
+  'Beginner · A1',
   '10 занять',
   '10 тижнів',
   '70 днів підтримки',
@@ -157,7 +164,8 @@ export const MARATHON_INCLUDES = [
 
 export const SITE_FAQ = [
   { q: 'Скільки часу потрібно?', a: 'Близько 1 години на день.' },
-  { q: 'Чи підійде для початківців?', a: 'Так. Марафон створений для рівня A1.' },
+  { q: 'Чи підійде для початківців?', a: 'Так. Це марафон базових тем для рівня A1 (Beginner).' },
+  { q: 'Коли старт марафону?', a: `Старт марафону з ${MARATHON_START_DATE}.` },
   { q: 'Чи перевіряються домашні завдання?', a: 'Так. Кожну роботу перевіряє куратор.' },
   { q: 'Чи потрібно вже говорити англійською?', a: 'Ні. Ми починаємо з найпростішої бази.' },
   { q: 'Якщо я пропущу заняття?', a: 'Уроки залишаються у вас, тому можна наздогнати програму.' },

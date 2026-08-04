@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { getMarathonTariff, formatPrice, SITE_HERO_IMAGE, SITE_NAME } from '../site'
+import { getMarathonTariff, formatPrice, MARATHON_LEVEL_LABEL, SITE_HERO_IMAGE, SITE_NAME } from '../site'
 import TimerCard from './TimerCard'
 import styles from './Hero.module.css'
 
@@ -24,6 +24,11 @@ export default function Hero() {
 
       <div className={styles.body}>
         <div className={styles.textBlock}>
+          <p className={styles.levelBadge}>
+            <span>{MARATHON_LEVEL_LABEL}</span>
+            <span className={styles.levelSep} aria-hidden="true">·</span>
+            <span>Базові теми для початківців</span>
+          </p>
           <h1 className={styles.headline}>
             Почни говорити <em>англійською</em>{' '}
             <span className={styles.highlight}>вже за 10 занять</span>
