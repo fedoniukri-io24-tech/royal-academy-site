@@ -5,7 +5,15 @@ import PaymentButton from './PaymentButton'
 import { SITE_NAV } from '../site'
 import styles from './Navbar.module.css'
 
-export default function Navbar({ transparent = false }: { transparent?: boolean }) {
+type NavItem = { href: string; label: string }
+
+export default function Navbar({
+  transparent = false,
+  navItems = SITE_NAV as unknown as NavItem[],
+}: {
+  transparent?: boolean
+  navItems?: NavItem[]
+}) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -29,7 +37,7 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
         <BrandLogo className={styles.brand} variant={isLightHeader ? 'light' : 'dark'} />
 
         <div className={styles.center}>
-          {SITE_NAV.map((item) => (
+          {navItems.map((item) => (
             <a key={item.href} href={item.href}>{item.label}</a>
           ))}
         </div>
@@ -55,7 +63,7 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
           </svg>
         </button>
         <BrandLogo href={undefined} size="sm" className={styles.drawerBrand} />
-        {SITE_NAV.map((item) => (
+        {navItems.map((item) => (
           <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>
         ))}
         <PaymentButton className={styles.drawerCta} onBeforeOpen={() => setMenuOpen(false)} aria-label="Оформити доступ">

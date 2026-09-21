@@ -1,19 +1,24 @@
 'use client'
 import Image from 'next/image'
-import { getMarathonTariff, formatPrice, MARATHON_LEVEL_LABEL, SITE_HERO_IMAGE, SITE_NAME } from '../site'
+import { getMarathonTariff, formatPrice, SITE_HERO_IMAGE, SITE_NAME } from '../site'
+import { BEGINNER_LANDING, type MarathonLandingConfig } from '../landings'
 import TimerCard from './TimerCard'
 import styles from './Hero.module.css'
 
 const supportTariff = getMarathonTariff('support')!
 const soloTariff = getMarathonTariff('solo')!
 
-export default function Hero() {
+type Props = {
+  landing?: MarathonLandingConfig
+}
+
+export default function Hero({ landing = BEGINNER_LANDING }: Props) {
   return (
     <section className={styles.hero} data-hero aria-label="Головний банер марафону">
       <div className={styles.bg}>
         <Image
           src={SITE_HERO_IMAGE}
-          alt={`Марафон англійської ${SITE_NAME}: почни говорити вже за 10 занять`}
+          alt={`Марафон англійської ${SITE_NAME}: ${landing.levelLabel}`}
           fill
           priority
           sizes="100vw"
@@ -25,9 +30,9 @@ export default function Hero() {
       <div className={styles.body}>
         <div className={styles.textBlock}>
           <p className={styles.levelBadge}>
-            <span>{MARATHON_LEVEL_LABEL}</span>
+            <span>{landing.levelLabel}</span>
             <span className={styles.levelSep} aria-hidden="true">·</span>
-            <span>Базові теми для початківців</span>
+            <span>{landing.levelSubtitle}</span>
           </p>
           <h1 className={styles.headline}>
             Почни говорити <em>англійською</em>{' '}

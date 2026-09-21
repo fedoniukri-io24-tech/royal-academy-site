@@ -64,7 +64,10 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 var(--page-x) clamp(88px, 12vh, 120px);
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: clamp(112px, 16vh, 140px) var(--page-x) clamp(88px, 12vh, 120px);
 }
 
 .textBlock {
@@ -261,7 +264,7 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .body {
-    padding: 0 var(--page-x) clamp(80px, 11vh, 108px);
+    padding: clamp(108px, 14vh, 128px) var(--page-x) clamp(80px, 11vh, 108px);
   }
 
   .textBlock {
@@ -329,19 +332,19 @@
     min-height: 0;
     justify-content: flex-end;
     align-items: stretch;
-    padding: 76px var(--page-x) max(104px, calc(env(safe-area-inset-bottom) + 88px));
+    padding: max(108px, calc(env(safe-area-inset-top) + 96px)) var(--page-x) max(104px, calc(env(safe-area-inset-bottom) + 88px));
     gap: 0;
     transform: none;
   }
 
   .textBlock {
-    flex: 1;
+    flex: 0 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 0;
+    gap: 12px;
     margin-bottom: 0;
-    padding-top: clamp(4px, 3vh, 28px);
+    padding-top: 0;
     padding-bottom: 0;
   }
 
@@ -415,13 +418,13 @@
 
 @media (max-width: 390px) {
   .body {
-    padding: 72px var(--page-x) max(96px, calc(env(safe-area-inset-bottom) + 80px));
+    padding: max(100px, calc(env(safe-area-inset-top) + 88px)) var(--page-x) max(96px, calc(env(safe-area-inset-bottom) + 80px));
     transform: none;
   }
 
   .textBlock {
-    gap: 0;
-    padding-top: 2px;
+    gap: 10px;
+    padding-top: 0;
     padding-bottom: 0;
   }
 
@@ -459,13 +462,13 @@
   }
 
   .body {
-    padding-top: 68px;
+    padding-top: max(100px, calc(env(safe-area-inset-top) + 88px));
     padding-bottom: max(88px, calc(env(safe-area-inset-bottom) + 72px));
     transform: none;
   }
 
   .textBlock {
-    gap: 0;
+    gap: 8px;
     padding-top: 0;
     padding-bottom: 0;
   }

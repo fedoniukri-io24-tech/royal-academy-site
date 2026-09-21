@@ -1,17 +1,36 @@
 import Link from 'next/link'
 import BrandLogo from './BrandLogo'
 import PaymentButton from './PaymentButton'
-import { MARATHON_DURATION_STATS, PRIVACY_POLICY_PATH, SITE_EMAIL, SITE_NAME, SITE_NAV, SITE_PHONE, SITE_PHONE_DISPLAY, TELEBOTS_URL } from '../site'
+import {
+  MARATHON_DURATION_STATS,
+  PRIVACY_POLICY_PATH,
+  SITE_EMAIL,
+  SITE_NAME,
+  SITE_NAV,
+  SITE_PHONE,
+  SITE_PHONE_DISPLAY,
+  TELEBOTS_URL,
+} from '../site'
 import styles from './Footer.module.css'
 
-export default function Footer() {
+type NavItem = { href: string; label: string }
+
+type Props = {
+  navItems?: NavItem[]
+  durationStats?: readonly string[]
+}
+
+export default function Footer({
+  navItems = SITE_NAV as unknown as NavItem[],
+  durationStats = MARATHON_DURATION_STATS,
+}: Props) {
   return (
     <footer className={styles.footer} data-footer>
       <div className={styles.top}>
         <div className={styles.cols}>
           <div className={styles.col}>
             <h3>Формат</h3>
-            <p>{MARATHON_DURATION_STATS.join(' · ')}</p>
+            <p>{durationStats.join(' · ')}</p>
             <PaymentButton className={styles.inlineLink} aria-label="Оформити доступ">
               Оформити доступ →
             </PaymentButton>
@@ -31,7 +50,7 @@ export default function Footer() {
       </div>
 
       <nav className={styles.links} aria-label="Навігація в підвалі">
-        {SITE_NAV.map((item) => (
+        {navItems.map((item) => (
           <a key={item.href} href={item.href}>{item.label}</a>
         ))}
         <Link href={PRIVACY_POLICY_PATH}>Політика конфіденційності</Link>

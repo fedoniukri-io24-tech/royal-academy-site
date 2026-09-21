@@ -1,17 +1,14 @@
 import {
-  MARATHON_PRICE_FROM,
   MARATHON_TARIFFS,
-  SITE_DESCRIPTION,
   SITE_EMAIL,
-  SITE_FAQ,
   SITE_HERO_IMAGE,
   SITE_LOGO,
   SITE_NAME,
   SITE_PHONE,
-  SITE_TITLE,
   SITE_URL,
   TELEGRAM_BOT_URL,
 } from '../site'
+import { BEGINNER_LANDING, getLandingCanonical, type MarathonLandingConfig } from '../landings'
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
@@ -22,7 +19,14 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
   )
 }
 
-export default function StructuredData() {
+type Props = {
+  landing?: MarathonLandingConfig
+}
+
+export default function StructuredData({ landing = BEGINNER_LANDING }: Props) {
+  const canonical = getLandingCanonical(landing)
+  const offersUrl = `${canonical}#tarify`
+
   const organization = {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
@@ -32,7 +36,7 @@ export default function StructuredData() {
     image: `${SITE_URL}${SITE_HERO_IMAGE}`,
     email: SITE_EMAIL,
     telephone: SITE_PHONE,
-    description: SITE_DESCRIPTION,
+    description: landing.description,
     sameAs: [TELEGRAM_BOT_URL],
   }
 
@@ -42,7 +46,7 @@ export default function StructuredData() {
     name: SITE_NAME,
     url: SITE_URL,
     inLanguage: 'uk-UA',
-    description: SITE_DESCRIPTION,
+    description: landing.description,
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,
@@ -53,14 +57,14 @@ export default function StructuredData() {
   const course = {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    name: '10-тижневий марафон англійської',
-    description: SITE_DESCRIPTION,
+    name: `10-тижневий марафон англійської (${landing.levelLabel})`,
+    description: landing.description,
     provider: {
       '@type': 'EducationalOrganization',
       name: SITE_NAME,
       url: SITE_URL,
     },
-    educationalLevel: 'Beginner',
+    educationalLevel: landing.educationalLevel,
     inLanguage: 'uk',
     offers: MARATHON_TARIFFS.map((tariff) => ({
       '@type': 'Offer',
@@ -68,7 +72,7 @@ export default function StructuredData() {
       price: String(tariff.price),
       priceCurrency: 'UAH',
       availability: 'https://schema.org/InStock',
-      url: `${SITE_URL}/#tarify`,
+      url: offersUrl,
     })),
     hasCourseInstance: {
       '@type': 'CourseInstance',
@@ -80,14 +84,14 @@ export default function StructuredData() {
   const webPage = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-    url: SITE_URL,
+    name: landing.title,
+    description: landing.description,
+    url: canonical,
     inLanguage: 'uk-UA',
     isPartOf: { '@id': `${SITE_URL}#website` },
     about: {
       '@type': 'Thing',
-      name: 'Марафон англійської мови',
+      name: `Марафон англійської мови ${landing.levelLabel}`,
     },
     primaryImageOfPage: `${SITE_URL}${SITE_HERO_IMAGE}`,
   }
@@ -95,7 +99,7 @@ export default function StructuredData() {
   const faqPage = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: SITE_FAQ.map((item) => ({
+    mainEntity: landing.faq.map((item) => ({
       '@type': 'Question',
       name: item.q,
       acceptedAnswer: {

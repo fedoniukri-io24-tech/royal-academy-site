@@ -1,34 +1,14 @@
 import type { Metadata } from 'next'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import MarathonSections from './components/MarathonSections'
-import ContactSection from './components/ContactSection'
-import Footer from './components/Footer'
-import FloatingCta from './components/FloatingCta'
-import { PaymentProvider } from './components/PaymentProvider'
-import StructuredData from './components/StructuredData'
-import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from './site'
+import MarathonLanding from './components/MarathonLanding'
+import { BEGINNER_LANDING, getLandingCanonical } from './landings'
 
 export const metadata: Metadata = {
-  title: SITE_TITLE,
-  description: SITE_DESCRIPTION,
-  alternates: { canonical: SITE_URL },
+  title: BEGINNER_LANDING.title,
+  description: BEGINNER_LANDING.description,
+  keywords: [...BEGINNER_LANDING.keywords],
+  alternates: { canonical: getLandingCanonical(BEGINNER_LANDING) },
 }
 
 export default function Home() {
-  return (
-    <PaymentProvider>
-      <div className="marathon-page">
-        <StructuredData />
-        <Navbar transparent />
-        <main>
-          <Hero />
-          <MarathonSections />
-          <ContactSection />
-        </main>
-        <Footer />
-        <FloatingCta />
-      </div>
-    </PaymentProvider>
-  )
+  return <MarathonLanding landing={BEGINNER_LANDING} />
 }

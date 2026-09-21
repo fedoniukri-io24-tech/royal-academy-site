@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import {
   EDIO_PLATFORM_URL,
+  MARATHON_START_DATE,
   MARATHON_START_LABEL,
   SITE_NAME,
   TELEGRAM_BOT_URL,
@@ -54,7 +55,7 @@ export default function SuccessPage({ searchParams }: Props) {
                 <strong>Перейдіть на платформу Edio</strong>
                 <span>
                   відкрийте лист із запрошенням або увійдіть на платформу — там будуть заняття.
-                  Марафон стартує з 10 серпня.
+                  Марафон стартує з {MARATHON_START_DATE}.
                 </span>
               </li>
               <li>

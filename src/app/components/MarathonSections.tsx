@@ -5,7 +5,8 @@ import FaqAccordion from './FaqAccordion'
 import LessonVideos from './LessonVideos'
 import MarathonStats from './MarathonStats'
 import Image from 'next/image'
-import { MARATHON_TARIFFS, formatPrice, SITE_FAQ, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
+import { MARATHON_TARIFFS, formatPrice, SITE_MARATHON_STEPS_IMAGE, SITE_NAME } from '../site'
+import { BEGINNER_LANDING, type MarathonLandingConfig } from '../landings'
 import styles from './MarathonSections.module.css'
 
 const BENEFITS = [
@@ -62,7 +63,6 @@ const LESSON_INCLUDES = [
 
 const BONUSES = [
   { icon: '🎵', text: 'Розбір популярних англомовних пісень' },
-  { icon: '🎥', text: 'Прямі ефіри' },
   { icon: '📚', text: 'PDF-конспект усіх уроків' },
   { icon: '🔗', text: 'Список корисних ресурсів для подальшого навчання' },
   { icon: '🎯', text: 'Фінальний тест' },
@@ -90,7 +90,7 @@ const RESULTS = [
 const STEPS = [
   'Реєструєтесь.',
   'Отримуєте доступ до Telegram-бота.',
-  'Щовівторка відкривається новий урок.',
+  'Щопонеділка, щосереди та щоп\'ятниці відкривається новий урок.',
   'Виконуєте практичне завдання.',
   'Отримуєте перевірку від куратора.',
   'Заробляєте бали.',
@@ -101,7 +101,14 @@ function SectionTitle({ children, light = false }: { children: React.ReactNode; 
   return <h2 className={light ? styles.headingLight : styles.heading}>{children}</h2>
 }
 
-export default function MarathonSections() {
+type Props = {
+  landing?: MarathonLandingConfig
+}
+
+export default function MarathonSections({ landing = BEGINNER_LANDING }: Props) {
+  const audience = landing.audience ?? AUDIENCE
+  const results = landing.results ?? RESULTS
+
   return (
     <>
       {/* Problem + Benefits */}
@@ -134,11 +141,11 @@ export default function MarathonSections() {
           </div>
 
           <div id="pro-marafon" className={styles.marathonAbout}>
-            <MarathonStats className={styles.durationStats} />
+            <MarathonStats className={styles.durationStats} stats={landing.durationStats} />
             <p className={styles.leadBox}>
-              Саме тому ми створили <strong>10-тижневий марафон базових тем</strong> для початківців
-              (рівень <strong>A1 · Beginner</strong>), який допомагає не просто дивитися уроки, а{' '}
-              <em>реально почати використовувати англійську.</em> Плюс{' '}
+              Саме тому ми створили <strong>10-тижневий марафон базових тем</strong>{' '}
+              (рівень <strong>{landing.levelShort}</strong>), який допомагає не просто
+              дивитися уроки, а <em>реально почати використовувати англійську.</em> Плюс{' '}
               <strong>70 днів підтримки</strong> від куратора.
             </p>
 
@@ -248,7 +255,7 @@ export default function MarathonSections() {
         <div className={styles.container}>
           <SectionTitle>Для кого цей марафон</SectionTitle>
           <div className={styles.audienceGrid}>
-            {AUDIENCE.map(a => (
+            {audience.map(a => (
               <div key={a} className={styles.audienceCard}>
                 <span className={styles.audienceCheck}>✓</span>
                 <p>{a}</p>
@@ -264,7 +271,7 @@ export default function MarathonSections() {
           <SectionTitle light>Що ви отримаєте після 10 занять</SectionTitle>
           <p className={styles.subheadingLight}>Після проходження марафону ви:</p>
           <div className={styles.resultGrid}>
-            {RESULTS.map(r => (
+            {results.map(r => (
               <div key={r} className={styles.resultCard}>
                 <span className={styles.resultCheck}>✓</span>
                 <p>{r}</p>
@@ -375,7 +382,7 @@ export default function MarathonSections() {
       <section id="faq" className={`${styles.section} ${styles.mutedFromWhite}`}>
         <div className={styles.container}>
           <SectionTitle>Відповіді на популярні питання</SectionTitle>
-          <FaqAccordion items={[...SITE_FAQ]} />
+          <FaqAccordion items={[...landing.faq]} />
         </div>
       </section>
 

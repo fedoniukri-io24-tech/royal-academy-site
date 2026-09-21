@@ -18,11 +18,11 @@ export const SITE_URL = normalizeSiteUrl(
 
 export const SITE_TITLE = `${SITE_NAME} | Марафон англійської для початківців (A1)`
 export const SITE_DESCRIPTION =
-  '10-тижневий онлайн-марафон англійської для початківців (рівень A1 / Beginner): базові теми, 10 занять · 10 тижнів · 70 днів підтримки. Старт 10 серпня. Тарифи від 399 грн.'
+  '10-тижневий онлайн-марафон англійської для початківців (рівень A1 / Beginner): базові теми, 10 занять · 10 тижнів · 70 днів підтримки. Старт 12 жовтня. Тарифи від 399 грн.'
 
 export const MARATHON_LEVEL_LABEL = 'Beginner · A1'
 export const MARATHON_LEVEL_DESCRIPTION = 'Марафон базових тем для початківців'
-export const MARATHON_START_DATE = '10 серпня'
+export const MARATHON_START_DATE = '12 жовтня'
 export const MARATHON_START_LABEL = `Старт марафону з ${MARATHON_START_DATE}`
 export const EDIO_PLATFORM_URL = 'https://my.edio.ai/'
 
